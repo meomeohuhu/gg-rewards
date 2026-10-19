@@ -1,0 +1,1 @@
+{"name":"gg-rewards","version":"0.1.0","private":true,"type":"module","scripts":{"start":"node server.js","dev":"node --watch server.js","test":"node --test","runner":"node scripts/runner.js","prepare:extension":"node scripts/prepare-extension.js"},"dependencies":{"playwright":"1.56.1"}}

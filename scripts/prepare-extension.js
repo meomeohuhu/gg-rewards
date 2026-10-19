@@ -1,0 +1,11 @@
+import {execFileSync} from 'node:child_process';
+import {existsSync,mkdirSync} from 'node:fs';
+import path from 'node:path';
+const dir=path.resolve('.local/search-auto');const commit='d2d7bc1761987d41411834a050930d4014d1dceb';
+mkdirSync('.local',{recursive:true});
+if(!existsSync(dir))execFileSync('git',['clone','https://github.com/vanhobmt99/reward.git',dir],{stdio:'inherit'});
+const remote=execFileSync('git',['-C',dir,'remote','get-url','origin'],{encoding:'utf8'}).trim();
+if(remote!=='https://github.com/vanhobmt99/reward.git')throw Error('Thư mục tiện ích có origin khác; không thay đổi.');
+if(execFileSync('git',['-C',dir,'status','--porcelain'],{encoding:'utf8'}).trim())throw Error('Tiện ích có thay đổi; giữ nguyên, không ghi đè.');
+execFileSync('git',['-C',dir,'checkout','--detach',commit],{stdio:'inherit'});
+console.log('Tiện ích đã chuẩn bị ở '+dir+' (mã nguồn bên thứ ba, giữ nguyên).');
